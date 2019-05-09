@@ -48,8 +48,8 @@ ball.shape("square")
 ball.color("white")
 ball.penup()
 ball.goto(0, 0)
-ball.dx = random.uniform(2.5,3.5)
-ball.dy = random.uniform(2.5,3.5)
+ball.dx = random.uniform(2,3)
+ball.dy = random.uniform(2,3)
 
 # Pen
 pen = turtle.Turtle()
@@ -126,7 +126,7 @@ while True:
 			pygame.mixer.music.play()
 			pygame.event.wait()
 			wn.bgpic("background.png")
-			ball.dx = random.uniform(2.5,3.5)
+			ball.dx = random.uniform(2,3)
 			pygame.mixer.music.load("BGM.mp3")
 			pygame.mixer.music.play(-1)
 
@@ -140,7 +140,7 @@ while True:
 			pygame.mixer.music.play()
 			pygame.event.wait()
 			wn.bgpic("background.png")
-			ball.dx = random.uniform(2.5,3.5)
+			ball.dx = random.uniform(2,3)
 			pygame.mixer.music.load("BGM.mp3")
 			pygame.mixer.music.play(-1)
 
