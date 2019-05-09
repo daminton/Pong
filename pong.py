@@ -1,10 +1,21 @@
 import turtle
 import pygame, sys
+import random
+
 #Make sure you download pygame module
+#update 5/4/19:
+	#Different paddle colors
+	#Different background image
+	#Added score image
+	#Added score sound effect
+	#Background music 
+	#Randomized pong speed
+	#Randomized pong path
+
 
 wn = turtle.Screen()
 wn.title("Pong")
-wn.bgcolor("black")
+wn.bgpic("background.png")
 wn.setup(width=800, height=600)
 wn.tracer(0)
 
@@ -16,7 +27,7 @@ score_b = 0
 paddle_a = turtle.Turtle()
 paddle_a.speed(0)
 paddle_a.shape("square")
-paddle_a.color("white")
+paddle_a.color("red")
 paddle_a.shapesize(stretch_wid=5, stretch_len=1)
 paddle_a.penup()
 paddle_a.goto(-350, 0)
@@ -25,7 +36,7 @@ paddle_a.goto(-350, 0)
 paddle_b = turtle.Turtle()
 paddle_b.speed(0)
 paddle_b.shape("square")
-paddle_b.color("white")
+paddle_b.color("lightblue")
 paddle_b.shapesize(stretch_wid=5, stretch_len=1)
 paddle_b.penup()
 paddle_b.goto(350, 0)
@@ -37,8 +48,8 @@ ball.shape("square")
 ball.color("white")
 ball.penup()
 ball.goto(0, 0)
-ball.dx = 2
-ball.dy = 2
+ball.dx = random.uniform(1,3)
+ball.dy = random.uniform(1,3)
 
 # Pen
 pen = turtle.Turtle()
@@ -76,11 +87,18 @@ wn.onkeypress(paddle_a_up, "w")
 wn.onkeypress(paddle_a_down, "s")
 wn.onkeypress(paddle_b_up, "Up")
 wn.onkeypress(paddle_b_down, "Down")
+wn.update
+
+#Background music
+pygame.mixer.pre_init(44100, -16, 2, 2048)
+pygame.init()
+pygame.mixer.init()
+pygame.mixer.music.load("BGM.mp3")
+pygame.mixer.music.play(-1)
 
 # Main game loop
-try:
-	while True:
-		pygame.init()
+while True:
+	try:
 		wn.update()
 
 		# Move the ball
@@ -91,50 +109,52 @@ try:
 		if ball.ycor() > 290:
 			ball.sety(290)
 			ball.dy *= -1
-			pygame.mixer.music.load("Bounce.mp3")
-			pygame.mixer.music.play()
-			#pygame.event.wait()
+
 
 		if ball.ycor() < -290:
 			ball.sety(-290)
 			ball.dy *= -1
-			pygame.mixer.music.load("Bounce.mp3")
-			pygame.mixer.music.play()
-			#pygame.event.wait()
+
 
 		if ball.xcor() > 390:
+			wn.bgpic("score.png")
 			ball.goto(0,0)
 			score_a += 1
 			pen.clear()
 			pen.write("Player A: {}  Player B: {}".format(score_a, score_b), align="center", font=("Courier", 24, "normal"))
-			pygame.mixer.music.load("Score.mp3")
+			pygame.mixer.music.load("Bounce.mp3")
 			pygame.mixer.music.play()
 			pygame.event.wait()
-			ball.dx *= -1
+			wn.bgpic("background.png")
+			ball.dx = random.uniform(2,3)
+			pygame.mixer.music.load("BGM.mp3")
+			pygame.mixer.music.play(-1)
 
 		if ball.xcor() < -390:
+			wn.bgpic("score.png")
 			ball.goto(0, 0)
 			score_b += 1
 			pen.clear()
 			pen.write("Player A: {}  Player B: {}".format(score_a, score_b), align="center", font=("Courier", 24, "normal"))
-			pygame.mixer.music.load("Score.mp3")
+			pygame.mixer.music.load("Bounce.mp3")
 			pygame.mixer.music.play()
 			pygame.event.wait()
-			ball.dx *= -1
+			wn.bgpic("background.png")
+			ball.dx = random.uniform(2,3)
+			pygame.mixer.music.load("BGM.mp3")
+			pygame.mixer.music.play(-1)
 
 
 		# Paddle and ball collisions
 		if (ball.xcor() > 340 and ball.xcor() < 350) and (ball.ycor() < paddle_b.ycor() + 40 and ball.ycor() > paddle_b.ycor() -40):
 			ball.setx(340)
 			ball.dx *= -1
-			pygame.mixer.music.load("Bounce.mp3")
-			pygame.mixer.music.play()
+			
 
 		if (ball.xcor() < -340 and ball.xcor() > -350) and (ball.ycor() < paddle_a.ycor() + 40 and ball.ycor() > paddle_a.ycor() -40):
 			ball.setx(-340)
 			ball.dx *= -1
-			pygame.mixer.music.load("Bounce.mp3")
-			pygame.mixer.music.play()
 
-except KeyboardInterrupt:
-	sys.exit()
+
+	except KeyboardInterrupt:
+		sys.exit()
