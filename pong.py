@@ -1,16 +1,16 @@
 import turtle
 import pygame, sys
 import random
-
 #Make sure you download pygame module
 #update 5/4/19:
-	#Different paddle colors
-	#Different background image
-	#Added score image
-	#Added score sound effect
-	#Background music 
-	#Randomized pong speed
-	#Randomized pong path
+#	1. Different background image
+#	2. Added score image
+#	3. Added score sound effect
+#	4. Background music 
+#	5. Randomized pong speed
+#	6. Randomized pong path
+#	7. Changed scoreboard
+#	8. Optimized wait times
 
 
 wn = turtle.Screen()
@@ -48,8 +48,8 @@ ball.shape("square")
 ball.color("white")
 ball.penup()
 ball.goto(0, 0)
-ball.dx = random.uniform(1,3)
-ball.dy = random.uniform(1,3)
+ball.dx = random.uniform(2.5,3.5)
+ball.dy = random.uniform(2.5,3.5)
 
 # Pen
 pen = turtle.Turtle()
@@ -58,7 +58,7 @@ pen.color("white")
 pen.penup()
 pen.hideturtle()
 pen.goto(0, 260)
-pen.write("Player A: 0  Player B: 0", align="center", font=("Courier", 24, "normal"))
+pen.write("-------------  Player A: 0 | Player B: 0  -------------", align="center", font=("Courier", 24, "normal"))
 
 # Function
 def paddle_a_up():
@@ -121,12 +121,12 @@ while True:
 			ball.goto(0,0)
 			score_a += 1
 			pen.clear()
-			pen.write("Player A: {}  Player B: {}".format(score_a, score_b), align="center", font=("Courier", 24, "normal"))
+			pen.write("-------------  Player A: {} | Player B: {}  -------------".format(score_a, score_b), align="center", font=("Courier", 24, "normal"))
 			pygame.mixer.music.load("Bounce.mp3")
 			pygame.mixer.music.play()
 			pygame.event.wait()
 			wn.bgpic("background.png")
-			ball.dx = random.uniform(2,3)
+			ball.dx = random.uniform(2.5,3.5)
 			pygame.mixer.music.load("BGM.mp3")
 			pygame.mixer.music.play(-1)
 
@@ -135,12 +135,12 @@ while True:
 			ball.goto(0, 0)
 			score_b += 1
 			pen.clear()
-			pen.write("Player A: {}  Player B: {}".format(score_a, score_b), align="center", font=("Courier", 24, "normal"))
+			pen.write("-------------  Player A: {} | Player B: {}  -------------".format(score_a, score_b), align="center", font=("Courier", 24, "normal"))
 			pygame.mixer.music.load("Bounce.mp3")
 			pygame.mixer.music.play()
 			pygame.event.wait()
 			wn.bgpic("background.png")
-			ball.dx = random.uniform(2,3)
+			ball.dx = random.uniform(2.5,3.5)
 			pygame.mixer.music.load("BGM.mp3")
 			pygame.mixer.music.play(-1)
 
@@ -149,7 +149,7 @@ while True:
 		if (ball.xcor() > 340 and ball.xcor() < 350) and (ball.ycor() < paddle_b.ycor() + 40 and ball.ycor() > paddle_b.ycor() -40):
 			ball.setx(340)
 			ball.dx *= -1
-			
+
 
 		if (ball.xcor() < -340 and ball.xcor() > -350) and (ball.ycor() < paddle_a.ycor() + 40 and ball.ycor() > paddle_a.ycor() -40):
 			ball.setx(-340)
