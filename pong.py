@@ -2,7 +2,7 @@ import turtle
 import pygame, sys
 import random
 #Make sure you download pygame module
-#update 5/4/19:
+#update 5/8/19:
 #	1. Different background image
 #	2. Added score image
 #	3. Added score sound effect
